@@ -9,6 +9,7 @@ import com.an.room.db.NoteDatabase;
 import com.an.room.model.Note;
 import com.an.room.util.AppUtils;
 
+import java.util.Date;
 import java.util.List;
 
 public class NoteRepository {
@@ -20,22 +21,24 @@ public class NoteRepository {
         noteDatabase = Room.databaseBuilder(context, NoteDatabase.class, DB_NAME).build();
     }
 
-    public void insertTask(String title,
+    public void insertTask(String title, Date createdDate,
                            String description) {
 
-        insertTask(title, description, false, null);
+        insertTask(title, createdDate, description, false, null);
     }
 
     public void insertTask(String title,
+                           Date createdDate,
                            String description,
                            boolean encrypt,
                            String password) {
 
         Note note = new Note();
         note.setTitle(title);
+        note.setCreatedDate(createdDate);
         note.setDescription(description);
-        note.setCreatedAt(AppUtils.getCurrentDateTime());
-        note.setModifiedAt(AppUtils.getCurrentDateTime());
+        //note.setCreatedAt(AppUtils.getCurrentDateTime());
+        //note.setModifiedAt(AppUtils.getCurrentDateTime());
         note.setEncrypt(encrypt);
 
 
@@ -56,17 +59,17 @@ public class NoteRepository {
         }.execute();
     }
 
-    public void updateTask(final Note note) {
-        note.setModifiedAt(AppUtils.getCurrentDateTime());
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                noteDatabase.daoAccess().updateTask(note);
-                return null;
-            }
-        }.execute();
-    }
+//    public void updateTask(final Note note) {
+//        note.setModifiedAt(AppUtils.getCurrentDateTime());
+//
+//        new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected Void doInBackground(Void... voids) {
+//                noteDatabase.daoAccess().updateTask(note);
+//                return null;
+//            }
+//        }.execute();
+//    }
 
     public void deleteTask(final int id) {
         final LiveData<Note> task = getTask(id);

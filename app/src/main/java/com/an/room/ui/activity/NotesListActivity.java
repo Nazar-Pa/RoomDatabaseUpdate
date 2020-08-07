@@ -5,11 +5,11 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.an.room.AppConstants;
@@ -20,6 +20,7 @@ import com.an.room.ui.adapter.NotesListAdapter;
 import com.an.room.util.NavigatorUtils;
 import com.an.room.util.RecyclerItemClickListener;
 
+import java.util.Date;
 import java.util.List;
 
 public class NotesListActivity extends AppCompatActivity implements View.OnClickListener,
@@ -29,7 +30,7 @@ public class NotesListActivity extends AppCompatActivity implements View.OnClick
     private TextView emptyView;
     private RecyclerView recyclerView;
     private NotesListAdapter notesListAdapter;
-    private FloatingActionButton floatingActionButton;
+    private Button floatingActionButton;
 
     private NoteRepository noteRepository;
 
@@ -100,27 +101,45 @@ public class NotesListActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
-            if(data.hasExtra(INTENT_TASK)) {
-                if(data.hasExtra(INTENT_DELETE)) {
-                    noteRepository.deleteTask((Note) data.getSerializableExtra(INTENT_TASK));
-
-                } else {
-                    noteRepository.updateTask((Note) data.getSerializableExtra(INTENT_TASK));
-                }
-            } else {
-                String title = data.getStringExtra(INTENT_TITLE);
+            String title = data.getStringExtra(INTENT_TITLE);
+                Date createdDate = (Date) data.getSerializableExtra(String.valueOf(INTENT_DATE));
                 String desc = data.getStringExtra(INTENT_DESC);
                 String pwd = data.getStringExtra(INTENT_PWD);
                 boolean encrypt = data.getBooleanExtra(INTENT_ENCRYPT, false);
-                noteRepository.insertTask(title, desc, encrypt, pwd);
-            }
+                noteRepository.insertTask(title, createdDate, desc, encrypt, pwd);
             updateTaskList();
         }
     }
 }
+
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//
+//            if(data.hasExtra(INTENT_TASK)) {
+//                if(data.hasExtra(INTENT_DELETE)) {
+//                    noteRepository.deleteTask((Note) data.getSerializableExtra(INTENT_TASK));
+//
+//                } else {
+//                    noteRepository.updateTask((Note) data.getSerializableExtra(INTENT_TASK));
+//                }
+//            } else {
+//                String title = data.getStringExtra(INTENT_TITLE);
+//                Date createdDate = (Date) data.getSerializableExtra(String.valueOf(INTENT_DATE));
+//                String desc = data.getStringExtra(INTENT_DESC);
+//                String pwd = data.getStringExtra(INTENT_PWD);
+//                boolean encrypt = data.getBooleanExtra(INTENT_ENCRYPT, false);
+//                noteRepository.insertTask(title, createdDate, desc, encrypt, pwd);
+//            }
+//            updateTaskList();
+//        }
+//    }
+//}

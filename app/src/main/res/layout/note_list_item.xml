@@ -43,6 +43,14 @@
                     android:textSize="@dimen/font_medium"
                     app:textFontPath="fonts/montserrat_medium.otf" />
 
+                <com.an.customfontview.CustomTextView
+                    android:id="@+id/item_title2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_medium"
+                    app:textFontPath="fonts/montserrat_medium.otf" />
+
 
                 <com.an.customfontview.CustomTextView
                     android:id="@+id/item_desc"

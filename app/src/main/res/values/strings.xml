@@ -4,7 +4,8 @@
     <string name="add_task_title">Add new note</string>
     <string name="edit_task_title">Edit note</string>
     <string name="btn_done">Done</string>
-    <string name="edit_title">Title</string>
+    <string name="edit_title">Add activity name</string>
+    <string name="edit_title2">Add activity name 2</string>
     <string name="edit_desc">Note</string>
     <string name="edit_pwd">Password</string>
     <string name="toolbar_pwd">Enter Password</string>

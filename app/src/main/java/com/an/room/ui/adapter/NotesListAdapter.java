@@ -3,6 +3,7 @@ package com.an.room.ui.adapter;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.an.room.model.Note;
 import com.an.room.util.AppUtils;
 import com.an.room.util.NoteDiffUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.CustomViewHolder> {
@@ -33,9 +35,16 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Cust
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         Note note = getItem(position);
-
+//My Notes page`inde Title ve Time`in gorunmesi burda olur
         holder.itemTitle.setText(note.getTitle());
-        holder.itemTime.setText(AppUtils.getFormattedDateString(note.getCreatedAt()));
+//        SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM");
+//
+//        String stringDate = DateFor.format(note.getCreatedDate());
+
+        //holder.itemTime2.setText(note.getCreatedDate().toString());
+        holder.itemTime2.setText(note.getFormattedDate());
+        //holder.itemTime.setText(AppUtils.getFormattedDateString(note.getCreatedAt()));
+
 
         if(note.isEncrypt()) {
             holder.itemTime.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_lock, 0);
@@ -64,12 +73,13 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Cust
 
     protected class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView itemTitle, itemTime;
+        private TextView itemTitle, itemTime, itemTime2;
         public CustomViewHolder(View itemView) {
             super(itemView);
 
             itemTitle = itemView.findViewById(R.id.item_title);
             itemTime = itemView.findViewById(R.id.item_desc);
+            itemTime2 = itemView.findViewById(R.id.item_title2);
         }
     }
 }

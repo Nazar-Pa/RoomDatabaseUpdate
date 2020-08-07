@@ -19,7 +19,7 @@ public interface DaoAccess {
     Long insertTask(Note note);
 
 
-    @Query("SELECT * FROM Note ORDER BY created_at desc")
+    @Query("SELECT * FROM Note ORDER BY created_date desc")
     LiveData<List<Note>> fetchAllTasks();
 
 
